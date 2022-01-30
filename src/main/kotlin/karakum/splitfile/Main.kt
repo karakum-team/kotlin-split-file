@@ -57,7 +57,7 @@ fun main() {
 
             for (dependency in dependencies) {
                 if (isFunctionDeclaration(dependency)) {
-                    val dependencyName = dependency . name ?. text ?: "default"
+                    val dependencyName = dependency.name?.text ?: "default"
 
                     fileContent += """import {$dependencyName} from "./${dependencyName}.js""""
                     fileContent += "\n"
