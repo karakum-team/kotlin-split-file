@@ -1,4 +1,4 @@
-package karakum.splitfile.karakum.splitfile
+package karakum.splitfile
 
 fun main() {
     println(greeting("kotlin-split-file"))
