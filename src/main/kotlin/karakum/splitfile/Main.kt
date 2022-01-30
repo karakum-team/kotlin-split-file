@@ -1,16 +1,14 @@
 package karakum.splitfile
 
-import kotlinext.js.ReadonlyArray
 import kotlinext.js.jso
 import node.fs.mkdirSync
+import node.process
 import node.fs.rmdirSync
 import node.fs.writeFileSync
-import typescript.Node
-import typescript.createProgram
-import typescript.isFunctionDeclaration
+import typescript.*
 
 fun main() {
-    val (filePath) = getArgs()
+    val (filePath) = process.argv.drop(2)
 
     val program = createProgram(
         arrayOf(
@@ -30,10 +28,9 @@ fun main() {
     rmdirSync("target", jso { recursive = true })
     mkdirSync("target")
 
-    // TODO: fix array inheritance
-    val statements = sourceFile.statements.unsafeCast<ReadonlyArray<Node>>()
+    val statements = sourceFile.statements.asArray()
 
-    val rootNodes = statements.filter { isFunctionDeclaration(it) }
+    val rootNodes: List<Node> = statements.filter { isFunctionDeclaration(it) }
 
     for (node in statements) {
         if (isFunctionDeclaration(node)) {
@@ -74,11 +71,6 @@ fun main() {
         }
     }
 }
-
-private fun getArgs(): List<String> =
-    js("process.argv")
-        .unsafeCast<Array<String>>()
-        .drop(2)
 
 private fun traverse(node: Node, callback: (current: Node) -> Unit) {
     callback(node)
