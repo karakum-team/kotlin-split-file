@@ -1,8 +1,7 @@
 package karakum.splitfile
 
-fun main() {
-    println(greeting("kotlin-split-file"))
-}
+import node.fs.readFileSync
 
-fun greeting(name: String) =
-    "Hello, $name"
+fun main() {
+    println(readFileSync("kotlin/dependentFunctions.js", "utf8"))
+}
