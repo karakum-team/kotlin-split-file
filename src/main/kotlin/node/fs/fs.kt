@@ -6,7 +6,7 @@ external fun readFileSync(path: String, encoding: String): String
 external fun writeFileSync(path: String, data: String)
 
 external interface RmdirOptions {
-    val recursive: Boolean
+    var recursive: Boolean
 }
 
 external fun rmdirSync(path: String, options: RmdirOptions)
